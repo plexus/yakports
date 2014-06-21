@@ -27,10 +27,11 @@ $ curl -H 'Accept: application/hal+json' http://yaks-airports.herokuapp.com/coun
 ### Collection+JSON
 
 ```
-$ curl -H 'Accept: application/vnd.collection+json' http://yaks-airports.herokuapp.com/count```
+$ curl -H 'Accept: application/vnd.collection+json' http://yaks-airports.herokuapp.com/countries/DE
+```
 
 ```json
-ries/DE
+
 {
   "collection": {
     "version": "1.0",

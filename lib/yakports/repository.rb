@@ -10,6 +10,14 @@ module Yakports
       airports.find{|x| x.id.to_i == id.to_i }
     end
 
+    def find_airline_by_code(iata_code)
+      airlines.find{|x| x.iata_code == iata_code }
+    end
+
+    def find_airline_by_id(id)
+      airlines.find{|x| x.id.to_i == id.to_i }
+    end
+
     def find_country_by_name(name)
       countries.find{|x| x.name == name }
     end

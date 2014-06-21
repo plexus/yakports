@@ -27,13 +27,15 @@ module Yakports
 
     attributes *DATA_FORMATS[:airports]
 
+    has_one :country
+
     def country_code
       airport.country.iso3166_1_alpha_2
     end
   end
 
   class AirlineMapper < BaseMapper
-    link :self, '/airlines/{iata_code}'
+    link :self, '/airlines/{id}'
 
     attributes :id, :name, :alt_name, :iata_code, :icao_code, :call_sign, :active
 

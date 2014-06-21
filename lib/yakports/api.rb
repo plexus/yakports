@@ -22,6 +22,14 @@ module Yakports
       end
     end
 
+    get 'airlines/:code_or_id' do
+      if params[:code_or_id] =~ /\A\d+\z/
+        Repository.find_airline_by_id(params[:code_or_id])
+      else
+        Repository.find_airline_by_code(params[:code_or_id])
+      end
+    end
+
     get 'countries/:iso_code' do
       Repository.find_country_by_code(params[:iso_code])
     end

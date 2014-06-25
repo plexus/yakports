@@ -11,9 +11,17 @@ module Yakports
     end
   end
 
+  class RootMapper < Yaks::Mapper
+    link 'countries', '/countries'
+    link 'country', '/countries/{country_code}', expand: false
+    link 'airports', '/airports'
+    link 'airlines', '/airlines'
+  end
+
   class CountryMapper < BaseMapper
     attributes :id, :name, :iso3166_1_alpha_2, :dst_type
 
+    link :self, '/countries/{id}'
     link 'airports', '/countries/{id}/airports'
     link 'airlines', '/countries/{id}/airlines'
 
@@ -48,5 +56,57 @@ module Yakports
     def active
       airline.active == "Y"
     end
+  end
+
+  class CollectionMapper < Yaks::CollectionMapper
+    attributes :count, :offset
+
+    link :previous, :previous_link
+    link :next, :next_link
+
+    PAGE_SIZE = 20
+
+    def request
+      Rack::Request.new(env)
+    end
+
+    def params
+      request.params
+    end
+
+    def offset
+      params.fetch('offset') { 0 }.to_i
+    end
+
+    alias full_collection collection
+
+    def collection
+      collection = full_collection
+
+      if mapper_stack.any? || collection.count < PAGE_SIZE
+        collection
+      elsif %w[offset limit].all? &collection.method(:respond_to?)
+        collection.offset(offset).limit(PAGE_SIZE)
+      else
+        collection.drop(offset).take(PAGE_SIZE)
+      end
+    end
+
+    def count
+      full_collection.count
+    end
+
+        def previous_link
+          if offset > 0
+            URITemplate.new("#{env['PATH_INFO']}{?offset}").expand(offset: [offset - PAGE_SIZE, 0].max)
+          end
+        end
+
+        def next_link
+          if offset + PAGE_SIZE < count
+            URITemplate.new("#{env['PATH_INFO']}{?offset}").expand(offset: offset + PAGE_SIZE)
+          end
+        end
+
   end
 end

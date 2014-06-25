@@ -1,8 +1,8 @@
 GIT
   remote: git://github.com/plexus/yaks.git
-  revision: 75087deb315bb8bb84339cd06e248cba418a2e31
+  revision: 79fac2ba8ace637144a45a8062461b13886c7214
   specs:
-    yaks (0.4.1)
+    yaks (0.4.2)
       concord (~> 0.1.4)
       inflection (~> 1.0)
       rack-accept (~> 0.4.5)
@@ -43,7 +43,7 @@ GEM
       rack-accept
       rack-mount
       virtus (>= 1.0.0)
-    hashie (3.0.0)
+    hashie (3.1.0)
     i18n (0.6.9)
     ice_nine (0.11.0)
     inflection (1.0.0)

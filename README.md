@@ -2,6 +2,8 @@
 
 ## A demo API app using Yaks
 
+Try it in your browser : http://yaks-airports.herokuapp.com/browser.html
+
 ### HAL
 
 ```

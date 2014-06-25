@@ -39,10 +39,16 @@ HAL.Browser = Backbone.Router.extend({
   },
 
   loadUrl: function(url) {
-    if (this.getHash() === url) {
-      HAL.client.get(url);
+    // if fully qualified and from a different origin no use trying to load it,
+    // just move the browser along and hope for the best
+    if (url.indexOf('http') === 0 && url.indexOf(window.location.origin) === -1) {
+      window.location = url;
     } else {
-      window.location.hash = url;
+      if (this.getHash() === url) {
+        HAL.client.get(url);
+      } else {
+        window.location.hash = url;
+      }
     }
   },
 

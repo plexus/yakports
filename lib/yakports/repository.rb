@@ -47,7 +47,7 @@ module Yakports
     end
 
     def load(file, klass)
-      read_csv(file).map {|record| klass.new(*record) }
+      read_csv(file).map {|record| klass.new(*record.map {|f| f unless f == '\N'}) }
     end
 
     def read_csv(file)

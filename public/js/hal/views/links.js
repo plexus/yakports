@@ -16,7 +16,11 @@ HAL.Views.Links = Backbone.View.extend({
     e.preventDefault();
     var $target = $(e.currentTarget);
     var uri = $target.attr('href');
-    window.location.hash = uri;
+    if (uri.indexOf('http') === 0 && uri.indexOf(window.location.origin) === -1) {
+      window.location = uri;
+    } else {
+      window.location.hash = uri;
+    }
   },
 
   showUriQueryDialog: function(e) {

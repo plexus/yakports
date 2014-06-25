@@ -5,10 +5,6 @@ module Yakports
       alt_name = Yaks::Util.underscore(base.name.sub(/.*::/,'').sub('Mapper',''))
       base.send(:alias_method, alt_name, :object)
     end
-
-    def filter(attrs)
-      attrs - env.fetch('api.exclude', [])
-    end
   end
 
   class RootMapper < Yaks::Mapper
@@ -16,6 +12,7 @@ module Yakports
     link 'country', '/countries/{country_code}', expand: false
     link 'airports', '/airports'
     link 'airlines', '/airlines'
+    link 'airport', '/airports/{iata_code}', expand: false
   end
 
   class CountryMapper < BaseMapper
@@ -32,10 +29,19 @@ module Yakports
 
   class AirportMapper < BaseMapper
     link :self, '/airports/{id}'
+    link 'flightstats', 'http://www.flightstats.com/go/Airport/airportDetails.do?airportCode={iata_code}'
+    link 'wikipdia', :wikipedia_link
 
     attributes *DATA_FORMATS[:airports]
 
     has_one :country
+
+    def wikipedia_link
+      return if airport.iata_code.nil? || airport.iata_code.empty?
+      if path = WikipediaAirports.lookup(airport.iata_code)
+        "https://en.wikipedia.org" + path
+      end
+    end
 
     def country_code
       airport.country.iso3166_1_alpha_2

@@ -54,12 +54,10 @@ module Yakports
       end
 
       get ':iso_code/airports' do
-        env['api.exclude'] = [:country]
         Repository.find_country_by_code(params[:iso_code]).airports
       end
 
       get ':iso_code/airlines' do
-        env['api.exclude'] = [:country]
         Repository.find_country_by_code(params[:iso_code]).airlines
       end
     end

@@ -39,5 +39,6 @@ end
 
 require 'yakports/api'
 require 'yakports/repository'
+require 'yakports/wikipedia_airports'
 require 'yakports/models'
 require 'yakports/mappers'

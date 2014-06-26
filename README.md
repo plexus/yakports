@@ -1,8 +1,23 @@
 # Yakports
 
-## A demo API app using Yaks
+A demonstration of how to use [Yaks](https://github.com/plexus/yaks) to build a hypermedia API. It also contains some helpful snippets that might make it into Yaks proper, such as how to set up integration with Grape, or how to handle pagination in a CollectionMapper.
 
-Try it in your browser : http://yaks-airports.herokuapp.com/browser.html
+You can browse the API using the [HAL browser](http://yaks-airports.herokuapp.com/browser.html)
+
+or try it on the command line with curl.
+
+Some example URLs
+
+```
+http://yaks-airports.herokuapp.com/countries/DE
+http://yaks-airports.herokuapp.com/airports/TXL
+http://yaks-airports.herokuapp.com/countries/DE/airports
+http://yaks-airports.herokuapp.com/countries/DE/airlines
+```
+
+Use the `Accept` header to request different formats.
+
+The data is taken from [OpenFlights](http://openflights.org/data.html)
 
 ### HAL
 

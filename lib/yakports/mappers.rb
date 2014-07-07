@@ -30,7 +30,7 @@ module Yakports
   class AirportMapper < BaseMapper
     link :self, '/airports/{id}'
     link 'flightstats', 'http://www.flightstats.com/go/Airport/airportDetails.do?airportCode={iata_code}'
-    link 'wikipdia', :wikipedia_link
+    link 'wikipedia', :wikipedia_link
 
     attributes *DATA_FORMATS[:airports]
 
